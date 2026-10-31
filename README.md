@@ -12,7 +12,6 @@ A static site (plain HTML, CSS and JavaScript, no build step) for GitHub Pages.
 ├── js/main.js          ← interactions, case drawer, deck viewer
 ├── assets/decks/<deck>/001.webp …   ← every deck page as an image
 ├── assets/decks/<deck>/t/…          ← small thumbnails for the viewer
-├── assets/pdf/<deck>.pdf            ← compressed PDFs for "Download"
 ├── assets/og.jpg       ← preview image when the link is shared
 ├── favicon.svg
 └── .nojekyll           ← tells GitHub Pages to serve files as-is
@@ -38,6 +37,8 @@ GitHub Pages settings: **Settings → Pages → Deploy from a branch → `main` 
   `move` (what I did), and `results`. The page rebuilds from this file automatically.
 - **Hero, TL;DR, philosophy, operations, 90-day plan, contact:** `index.html`.
 - **Hero rotating phrases:** top of `js/main.js` (`const words = [...]`).
+- **Instagram reels:** `window.REELS` at the bottom of `js/data.js`. Each video is
+  `["Label", "CODE"]`, where CODE is the part after `/reel/` in the Instagram link.
 - **Colours / fonts:** the `:root` block at the top of `css/style.css` (`--accent` is the orange).
 
 ## Add a new deck
@@ -45,8 +46,7 @@ GitHub Pages settings: **Settings → Pages → Deploy from a branch → `main` 
 1. Export the deck to PDF.
 2. Convert pages to images (needs Python with `pymupdf` and `pillow`):
    each page as `assets/decks/<name>/001.webp, 002.webp …` at 1600 px wide,
-   a 900 px `cover.webp`, 320 px thumbnails in `assets/decks/<name>/t/`,
-   and a compressed copy at `assets/pdf/<name>.pdf`.
+   a 900 px `cover.webp`, and 320 px thumbnails in `assets/decks/<name>/t/`.
 3. Add it to `window.DECKS` in `js/data.js` (title + page count), and link it from a project
    with `deck: "<name>"`.
 

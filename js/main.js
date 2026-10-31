@@ -8,7 +8,6 @@
   const deckImg = (slug, page) => `assets/decks/${slug}/${pad(page)}.webp`;
   const deckThumb = (slug, page) => `assets/decks/${slug}/t/${pad(page)}.webp`;
   const deckCover = (slug, page = 1) => page > 1 ? deckImg(slug, page) : `assets/decks/${slug}/cover.webp`;
-  const deckPdf = slug => `assets/pdf/${slug}.pdf`;
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 
   const WORK = window.WORK, DECKS = window.DECKS;
@@ -154,8 +153,57 @@
   let funnelAuto = !reduced, fi = 0;
   setInterval(() => { if (funnelAuto && isVisible($("#funnel"))) setStep(fi = (fi + 1) % FUNNEL.length); }, 3200);
 
+  /* ---------------- instagram reels ---------------- */
+  const REELS = window.REELS || [];
+  const reelCard = ([label, code]) => `
+    <figure class="reel">
+      <figcaption>${esc(label)}</figcaption>
+      <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/${code}/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14">
+        <a href="https://www.instagram.com/reel/${code}/" target="_blank" rel="noopener" class="reel-fallback">Watch “${esc(label)}” on Instagram ↗</a>
+      </blockquote>
+    </figure>`;
+  let igLoading = null;
+  // if Instagram is blocked (privacy extensions, some office networks) show a link card instead of an empty frame
+  const checkReels = () => [8000, 20000].forEach(ms => setTimeout(() => $$(".reel").forEach(r => {
+    const f = $("iframe", r);
+    r.classList.toggle("reel--fallback", !f || (parseInt(f.style.height) || 0) < 100);
+  }), ms));
+  const processReels = () => {
+    checkReels();
+    if (window.instgrm) return window.instgrm.Embeds.process();
+    if (!igLoading) {
+      igLoading = document.createElement("script");
+      igLoading.src = "https://www.instagram.com/embed.js";
+      igLoading.async = true;
+      igLoading.onload = () => window.instgrm?.Embeds.process();
+      document.body.appendChild(igLoading);
+    }
+  };
+
+  const filmTabs = $("#film-tabs"), filmStage = $("#film-stage");
+  filmTabs.innerHTML = REELS.map((g, i) => `
+    <button role="tab" aria-selected="${i === 0}" data-film="${g.id}">
+      <b>${esc(g.title)}</b><span>${g.items.length} ${g.items.length > 1 ? "videos" : "video"}</span>
+    </button>`).join("");
+  const showFilm = id => {
+    const g = REELS.find(r => r.id === id);
+    $$("button", filmTabs).forEach(b => b.setAttribute("aria-selected", b.dataset.film === id));
+    filmStage.innerHTML = `
+      <div class="film-head">
+        <div><p class="card-tag">${esc(g.role)}</p><p class="film-sub">${esc(g.sub)}</p></div>
+        ${g.caseId ? `<a class="btn btn-sm btn-ghost" href="#case/${g.caseId}">Read the case study →</a>` : ""}
+      </div>
+      <div class="reel-row">${g.items.map(reelCard).join("")}</div>`;
+    processReels();
+  };
+  filmTabs.addEventListener("click", e => { const b = e.target.closest("[data-film]"); if (b) showFilm(b.dataset.film); });
+  // load the first set (and Instagram's script) only when the section comes near the screen
+  new IntersectionObserver((en, obs) => {
+    if (en[0].isIntersecting) { showFilm(REELS[0].id); obs.disconnect(); }
+  }, { rootMargin: "600px 0px" }).observe($("#films"));
+
   /* ---------------- library ---------------- */
-  const libOrder = ["central-province", "credai", "dr-arpit-tiwari", "barrel", "lemount", "central-province-pitch", "stok", "kimirica", "dp-jewelers"];
+  const libOrder = ["central-province", "credai", "dr-arpit-tiwari", "barrel", "saa", "lemount", "central-province-pitch", "rhythm-resitel", "stok", "kimirica", "dp-jewelers"];
   $("#lib-grid").innerHTML = libOrder.map(slug => {
     const d = DECKS[slug];
     const kind = WORK.find(w => w.deck === slug)?.type === "pitch" ? "Pitch deck" : "Case study";
@@ -164,7 +212,7 @@
       <div class="doc-media"><img src="${deckCover(slug)}" alt="${esc(d.title)} — cover" loading="lazy" width="900" height="506"></div>
       <div class="doc-body">
         <div><b>${esc(d.title)}</b><span>${kind} · ${d.pages} pages</span></div>
-        <a class="doc-dl" href="${deckPdf(slug)}" download aria-label="Download ${esc(d.title)} PDF" title="Download PDF">↓</a>
+        <span class="doc-go" aria-hidden="true">↗</span>
       </div>
       <a class="card-link" href="#deck/${slug}/1" data-cursor="Read" aria-label="Read ${esc(d.title)}"></a>
     </article>`;
@@ -311,9 +359,13 @@
           ${w.note ? `<p class="d-note">${esc(w.note)}</p>` : ""}
         </div>
       </section>
+      ${REELS.filter(r => r.caseId === w.id).map(r => `
+      <section class="d-sec d-films"><h4>The films</h4>
+        <div><p class="d-film-sub">${esc(r.role)} — ${esc(r.sub)}</p><div class="reel-row in-drawer">${r.items.map(reelCard).join("")}</div></div>
+      </section>`).join("")}
       <div class="d-actions">
         ${deck ? `<button class="btn btn-accent" data-open-deck="${w.deck}" data-page="${w.deckPage || 1}">View the full deck →</button>
-        <a class="btn btn-ghost" href="${deckPdf(w.deck)}" download>Download PDF</a>` : ""}
+` : ""}
         <a class="btn btn-ghost" href="#contact" data-close-all>Talk about this project</a>
       </div>`;
   };
@@ -325,6 +377,7 @@
     current = w;
     $("#d-kind").textContent = w.type === "pitch" ? "Pitch" : "Case study";
     dBody.innerHTML = renderCase(w);
+    if ($(".instagram-media", dBody)) processReels();
     dBody.scrollTop = 0;
     drawer.classList.add("open");
     drawer.setAttribute("aria-hidden", "false");
@@ -366,7 +419,6 @@
     if (vSlug !== slug) {
       vSlug = slug; vTotal = d.pages;
       $("#v-title").textContent = d.title;
-      $("#v-dl").href = deckPdf(slug);
       vStrip.innerHTML = Array.from({ length: vTotal }, (_, i) =>
         `<button data-p="${i + 1}" aria-label="Page ${i + 1}"><img src="${deckThumb(slug, i + 1)}" alt="" loading="lazy" width="320" height="180"></button>`).join("");
       vGrid.innerHTML = Array.from({ length: vTotal }, (_, i) =>

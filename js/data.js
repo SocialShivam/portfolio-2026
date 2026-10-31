@@ -11,8 +11,10 @@ window.DECKS = {
   "barrel":                 { title: "Barrel — Club Launch Case Study",           pages: 12,  ratio: 16 / 9 },
   "credai":                 { title: "CREDAI Property Show 2026 — Case Study",    pages: 21,  ratio: 16 / 9 },
   "dr-arpit-tiwari":        { title: "Dr. Arpit Tiwari — Personal Branding",      pages: 18,  ratio: 16 / 9 },
-  "lemount":                { title: "Lemount — Year-long Launch Campaign",       pages: 127, ratio: 16 / 9 },
-  "stok":                   { title: "STOK India — Gen Z Strategy",               pages: 56,  ratio: 16 / 9 },
+  "saa":                    { title: "Sunil Agrawal & Associates — Case Study",   pages: 14,  ratio: 16 / 9 },
+  "lemount":                { title: "Lemount — Year-long Launch Campaign",       pages: 105, ratio: 16 / 9 },
+  "rhythm-resitel":         { title: "Rhythm ResiTel — Go-to-Market Plan",        pages: 34,  ratio: 16 / 9 },
+  "stok":                   { title: "STOK India — Gen Z Strategy",               pages: 38,  ratio: 16 / 9 },
   "kimirica":               { title: "Kimirica — Digital Strategy (Phase 1)",     pages: 26,  ratio: 16 / 9 },
   "dp-jewelers":            { title: "DP Jewelers — #ForEveryGeneration",         pages: 22,  ratio: 16 / 9 }
 };
@@ -208,13 +210,13 @@ window.WORK = [
     hero: { n: "23,223", l: "enquiries in FY 23-24" },
     challenge: "A 24-year legacy, manual processes, no unified view of data — and massive inventory to sell without diluting a premium brand.",
     insight: "Leads are wasted if the system behind them is manual. Fix the pipe, then fill it.",
-    move: "Deployed a <b>tech-enabled brand ecosystem</b>: CRM integration and WhatsApp automation for lead flow, paired with a trust-and-authority content strategy positioning SAA as the city's #1 experts.",
+    move: "Deployed a <b>tech-enabled brand ecosystem</b>: CRM integration and WhatsApp automation for lead flow, paired with a trust-and-authority content strategy positioning SAA as the city's #1 experts. Content built around SAA's USP pulled home buyers in, every digital property was integrated, and regular newsletters, mailers and PR kept existing prospects warm — while search, display, Facebook, Instagram, YouTube, lead-gen and retargeting ads sold the inventory.",
     results: [
       ["23,223", "enquiries in FY 2023-24"],
       ["#1", "Google ranking for key commercial searches"],
       ["246,000+", "search impressions"]
     ],
-    deck: null
+    deck: "saa", deckPage: 1
   },
 
   /* ---------------- PITCHES ---------------- */
@@ -231,7 +233,7 @@ window.WORK = [
     insight: "The best evenings aren't occasions — they're the gang choosing to show up. Lemount should belong to the moment the plan comes together.",
     move: "<b>Route 1 — “Scene hai? Lemount le aa.”</b> Lemount becomes part of the invitation: voice notes, rooftop plans, a housewarming on cartons.<br><br><b>Route 2 — “Shaam Hogi Superhit.”</b> Everyday evenings get the blockbuster-trailer treatment: action, drama, all-time-hit dialogues.<br><br><b>Route 3 — “Milenge Toh Machega.”</b> An artist collaboration (Raftaar × Rashmeet Kaur × SickFlip) with South-first lead options, a call-and-response chorus for UGC, live launch gig and Milenge Sessions.<br><br>Each route ships with film scripts, socials, retail branding, regional adaptations, on-ground activations and merch.",
     results: [
-      ["127", "page campaign book"],
+      ["105", "page campaign book"],
       ["3", "routes, each fully scripted"],
       ["360°", "film · social · retail · on-ground · merch"]
     ],
@@ -253,6 +255,21 @@ window.WORK = [
     deck: "central-province-pitch", deckPage: 1
   },
   {
+    id: "rhythm-resitel",
+    type: "pitch", cat: ["pitch"],
+    tag: "Luxury real estate · GTM plan",
+    title: "Rhythm ResiTel",
+    client: "Luxury resort villas — leaseback investment model",
+    role: "Digital Strategy, Content & SEO Plan",
+    hook: "Selling luxury villas as an investment — not just a holiday home.",
+    hero: { n: "7", l: "workstreams, one plan" },
+    challenge: "Take Rhythm ResiTel to high-net-worth investors: a resort-villa model that blends luxury living, passive income from a leaseback, and long-term capital appreciation — a product that needs explaining before it can be sold.",
+    insight: "HNIs don't buy a villa, they buy a return — and the right to enjoy it. Lead with the investment, close with the lifestyle.",
+    move: "Positioned Rhythm ResiTel as a <b>premier investment destination</b> with a tone of exclusivity, high returns and hassle-free ownership. The plan runs seven workstreams: website re-development (full sitemap), social content, communication campaigns — <b>“The Real Luxury is…”</b> and <b>“Experience ownership with Rhythm ResiTel”</b> — CRM setup, paid media, a 5-part explainer video series on the leaseback and revenue-sharing model, and an SEO engine of pillar pages, content clusters and keyword maps (branded, business-model and location).",
+    results: [["34", "page go-to-market plan"], ["2", "communication campaigns"], ["5", "explainer videos planned"], ["SEO", "pillar pages, clusters & keyword map"]],
+    deck: "rhythm-resitel", deckPage: 1
+  },
+  {
     id: "stok",
     type: "pitch", cat: ["pitch"],
     tag: "Gen Z brand strategy",
@@ -264,7 +281,7 @@ window.WORK = [
     challenge: "STOK had social presence but couldn't reach new audiences or drive meaningful engagement with its core Gen Z audience.",
     insight: "Shift from product-first (product slammed into every post) to people-first: a brand that feels like a friend in the chaos — “Live the Chill”.",
     move: "Content IPs: <b>Chill Guru</b> (ulta gyan from a hammock), <b>Unstok'd Truths</b> (a satirical panda podcast), dance hooksteps and <b>Stok on the Streets</b>. On-ground: Panda Pods in waiting lounges, Panda Wali Party club takeovers, Stok'd Beats QR playlists, Wear the Chill merch — plus a Jaipur launch plan (#SpotTheStokPanda).",
-    results: [["56", "page strategy deck"], ["8+", "named content & activation IPs"], ["3-phase", "awareness → community → engagement"]],
+    results: [["38", "page strategy deck"], ["8+", "named content & activation IPs"], ["3-phase", "awareness → community → engagement"]],
     deck: "stok", deckPage: 1
   },
   {
@@ -302,3 +319,36 @@ window.WORK = [
 window.REAL_ESTATE_CLIENTS = ["SAA", "BCM Group", "Skye Earth Developers", "NM Group", "SS Infinitus", "Ruchi Realty", "D2R", "Sanjana Developers", "Universal Infratech", "VKG Group"];
 
 window.MARQUEE = ["Central Province", "CREDAI Indore", "Simcha Island", "Arihant Capital", "Barrel", "SAA", "Lemount", "STOK", "Kimirica", "DP Jewelers", "Dr. Arpit Tiwari", "BCM Group", "Royal Greens", "Ruchi Realty", "VKG Group"];
+
+/* Instagram reels — the code is the part after /reel/ in the link.
+   caseId shows the reels inside that case study as well. */
+window.REELS = [
+  {
+    id: "masterstroke", caseId: "masterstroke",
+    title: "The MasterStroke",
+    sub: "Micro-drama series for Associated Alcohols & Breweries Ltd. — teaser + 5 episodes",
+    role: "Written, directed & planned",
+    items: [["Teaser", "DIqOEk8MqOs"], ["Episode 1", "DIyndervOcI"], ["Episode 2", "DJHGqgevIp_"], ["Episode 3", "DJZfvKbIYjs"], ["Episode 4", "DJrnAQGo9ND"], ["Episode 5", "DJ9f927o9gM"]]
+  },
+  {
+    id: "snow-park", caseId: "simcha-snow",
+    title: "Simcha Snow Park",
+    sub: "Summer campaign launching Simcha Island's new snow park — 2 teasers + final film",
+    role: "Directed & planned",
+    items: [["Teaser 1", "C6OQttVxWiO"], ["Teaser 2", "C6WEwPGscwu"], ["Final film", "C6d8HXIxa2m"]]
+  },
+  {
+    id: "simcha-stays", caseId: null,
+    title: "Simcha Island Stays",
+    sub: "Video campaign promoting the resort's stay options",
+    role: "Directed & planned",
+    items: [["Stay campaign", "C92XHCFS9Wp"]]
+  },
+  {
+    id: "one-street", caseId: null,
+    title: "Singapore One Street",
+    sub: "AI-generated film for Sarthak's Singapore One Street project",
+    role: "Directed & planned (AI video)",
+    items: [["AI film", "DfJk8D-pNpT"]]
+  }
+];
